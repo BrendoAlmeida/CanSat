@@ -1,7 +1,8 @@
 #include <iostream>
 #include <wiringPi.h>
-#include "../cameraOS/cameraOS.cpp"
 #include <thread>
+#include "../cameraOS/cameraOS.cpp"
+#include "loraPackets/packets.cpp"
 
 using namespace std;
 
@@ -13,8 +14,7 @@ void setup() {
 
 void loop() {
     delay(1000);
-//    thread cameraOS = thread(cameraOS::tiraFoto);
-//    cameraOS.detach();
+    packets::splitPackets();
 }
 
 int main()

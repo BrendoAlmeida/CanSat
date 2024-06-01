@@ -1,61 +1,39 @@
-#!/usr/bin/env python3
-# import os
-# import time
-# from picamera import PiCamera
-# from lib import compression
+import os
+import time
+from picamera import PiCamera
+from lib import compression
+import threading
 
-import os.path
-import sys
-from moviepy.editor import VideoFileClip
+outputPath = "cameraOS/record"
+ts = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
+fileName = f"record_{ts}.h264"
 
-# try:
-    # camera = PiCamera()
-    # camera.resolution = (1024, 720)
-    # path = "cameraOS/imagens"
-    #
-    # if not os.path.exists(path):
-    #     os.makedirs(path)
-    #
-    # ts = time.strftime("%Y-%m-%d-%H %M %S", time.gmtime())
-    # imgPath = f"{path}/foto_{ts}.jpg"
-    # print(f"{path}/foto_{ts}.jpg")
-    # camera.capture(imgPath)
-    # compression.compress(imgPath, 50)
+pathImg = "cameraOS/imagens"
 
-# videoPath = os.listdir("record")
-# print(videoPath[len(videoPath)-1])
-# cap = cv2.VideoCapture(f"record/{videoPath[len(videoPath)-1]}")
-#
-# # Pule para o último frame
-# total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-# cap.set(cv2.CAP_PROP_POS_FRAMES, total_frames - 1)
-#
-# # Leia o último frame
-# ret, frame = cap.read()
-#
-# # Salve o último frame como uma imagem
-# if ret:
-#     cv2.imwrite('ultimo_frame.jpg', frame)
-#     print('Último frame salvo como "ultimo_frame.jpg"')
-# else:
-#     print('Erro ao ler o último frame')
-#
-# cap.release()
+if not os.path.exists(outputPath):
+    os.makedirs(outputPath)
 
+if not os.path.exists(pathImg):
+    os.makedirs(pathImg)
 
-# Carregue o vídeo
-videoPath = os.listdir("record")
-print(f"record/{videoPath[len(videoPath)-1]}")
-clip = VideoFileClip(f"record/{videoPath[len(videoPath)-1]}")
+camera = PiCamera()
+camera.framerate = 30
+camera.resolution = (1920, 1080)
+time.sleep(2)
 
-# Obtenha o último frame
-last_frame = clip.get_frame(clip.duration - 0.01)  # 0.01 segundos antes do final
+try:
+    camera.start_recording(f"{outputPath}/{fileName}")
+    print("Gravando...")
 
-# Salve o último frame como uma imagem
-last_frame.save_frame('ultimo_frame_moviepy.jpg')
+    while True:
+        time.sleep(1)
+        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        photo_filename = f"{pathImg}/foto_{timestamp}.jpg"
+        camera.capture(photo_filename, use_video_port=True)
+        print(f"Tirada foto: {photo_filename}")
+        thred = threading.Thread(target=compression.compress, args=(f"{pathImg}/foto_{timestamp}.jpg", 50))
+        thred.start()
 
-print('Último frame salvo como "ultimo_frame_moviepy.jpg"')
-
-#
-# except KeyboardInterrupt:
-#     sys.exit()
+except:
+    print("ERROR")
+    camera.stop_recording()

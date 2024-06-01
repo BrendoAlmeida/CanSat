@@ -3,10 +3,6 @@
 
 using namespace std;
 
-void cameraOS::tiraFoto() {
-    system("python cameraOS/start.py");
-}
-
 void cameraOS::start() {
-    system("python cameraOS/record.py");
+    system("python cameraOS/start.py");
 }

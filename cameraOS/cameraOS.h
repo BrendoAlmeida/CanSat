@@ -5,7 +5,6 @@
 class cameraOS {
 public:
     static void start();
-    static void tiraFoto();
 };
 
 
