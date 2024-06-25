@@ -149,11 +149,3 @@ class burnDetection:
             cv2.waitKey(0)
 
         cv2.destroyAllWindows()
-
-
-# burnDetection = burnDetection("images/treinamento/FireImages", 16)
-# burnDetection.start(False)
-# burnDetection.testColors()
-
-burnDetection = burnDetection("video/Fire", 16)
-burnDetection.startVideo(False)
