@@ -69,11 +69,14 @@ class burnDetection:
             return
 
         # Em caso de fumaça verificar fogo
-        cv2.putText(self.img, 'Fumaca!', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        imgEscrito = cv2.putText(self.img, 'Fumaca!', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         contourFogo = self.contourCheck(self.getContour(True))
 
         if len(contourFogo) > 0:
-            cv2.putText(self.img, 'Fogo!', (self.img.shape[1] - 100, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(imgEscrito, 'Fogo!', (self.img.shape[1] - 100, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+
+        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        cv2.imwrite(f"cameraOS/imagens/burnDetection/foto_{timestamp}.jpg", imgEscrito)
 
         if show:
             frame = self.paintContours(contour)
