@@ -2,6 +2,7 @@ import os
 import time
 from picamera import PiCamera
 from lib import compression
+from lib import burnDetection
 import threading
 
 outputPath = "cameraOS/record"
@@ -31,6 +32,8 @@ try:
         photo_filename = f"{pathImg}/foto_{timestamp}.jpg"
         camera.capture(photo_filename, use_video_port=True)
         print(f"Tirada foto: {photo_filename}")
+        burnDetection.burnDetection(photo_filename, 16).start()
+
         thred = threading.Thread(target=compression.compress, args=(f"{pathImg}/foto_{timestamp}.jpg", 50))
         thred.start()
 
