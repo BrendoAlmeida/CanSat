@@ -43,7 +43,7 @@ namespace std{
     {
         const experimental::filesystem::path filePath{"../../cameraOS/imagens/compressed"};
         for (auto const& dir_entry : experimental::filesystem::recursive_directory_iterator{filePath} {
-            std::cout << dir_entry << '\n';
+            cout << dir_entry << '\n';
             vector<unsigned char> imageBytes = readImageToBytes(dir_entry);
             vector<vector<unsigned char>> packets = splitBytesIntoPackets(imageBytes);
 

@@ -6,19 +6,21 @@
 
 using namespace std;
 
-void setup() {
-    cout << "Hello World" << endl;
+void setup()
+{
     thread cameraOS = thread(cameraOS::start);
     cameraOS.detach();
 }
 
-void loop() {
+void loop()
+{
     delay(1000);
     packets::splitPackets();
 }
 
 int main()
 {
+    cout << "Iniciando wiringPI" << endl;
     if (wiringPiSetup() < 0) {
         cout << "setup wiring pi failed" << endl;
         return 1;
