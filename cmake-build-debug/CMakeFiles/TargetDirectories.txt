@@ -1,0 +1,3 @@
+C:/Users/brend/Desktop/RaspBerry/CanSat/cmake-build-debug/CMakeFiles/CanSat.dir
+C:/Users/brend/Desktop/RaspBerry/CanSat/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/brend/Desktop/RaspBerry/CanSat/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -2,20 +2,22 @@
 #include <wiringPi.h>
 #include <thread>
 #include "../cameraOS/cameraOS.cpp"
-#include "loraPackets/packets.cpp"
+#include "loraPackets/lora.h"
 
 using namespace std;
 
 void setup()
 {
-    thread cameraOS = thread(cameraOS::start);
-    cameraOS.detach();
+//    thread cameraOS = thread(cameraOS::start);
+//    cameraOS.detach();
+
+    thread lora = thread(lora::start);
+    lora.detach();
 }
 
 void loop()
 {
     delay(1000);
-    packets::splitPackets();
 }
 
 int main()
