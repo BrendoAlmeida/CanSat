@@ -1,5 +1,6 @@
 #include <iostream>
 #include <wiringPi.h>
+#include <stdio.h>
 #include <thread>
 #include "../cameraOS/cameraOS.cpp"
 #include "loraPackets/lora.h"
