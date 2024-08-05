@@ -11,6 +11,4 @@ add_executable(CanSat
         cameraOS/cameraOS.h
         src/loraPackets/lora.cpp
         src/loraPackets/lora.h
-        src/loraPackets/packets.cpp
-        src/loraPackets/packets.h
         src/main.cpp)

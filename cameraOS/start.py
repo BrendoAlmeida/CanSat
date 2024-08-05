@@ -19,7 +19,7 @@ if not os.path.exists(pathImg):
 
 camera = PiCamera()
 camera.framerate = 30
-camera.resolution = (1920, 1080)
+camera.resolution = (1280, 720)
 time.sleep(2)
 
 try:
@@ -34,7 +34,7 @@ try:
         print(f"Tirada foto: {photo_filename}")
         burnDetection.burnDetection(photo_filename, 16).start()
 
-        thred = threading.Thread(target=compression.compress, args=(f"{pathImg}/foto_{timestamp}.jpg", 50))
+        thred = threading.Thread(target=compression.compress, args=(f"{pathImg}/foto_{timestamp}.jpg", 250))
         thred.start()
 
 except:

@@ -1,19 +1,36 @@
 #include <iostream>
 #include <wiringPi.h>
+#include <wiringPiSPI.h>
 #include <stdio.h>
 #include <thread>
+
+#include <cstdio>
+#include <string>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <sys/time.h>
+#include <signal.h>
+#include <stdlib.h>
+
 #include "../cameraOS/cameraOS.cpp"
-#include "loraPackets/lora.h"
+#include "loraPackets/sendPayload.h"
 
 using namespace std;
+
+void startPayload() {
+    sendPayload payloadSender;
+    payloadSender.start();
+}
 
 void setup()
 {
 //    thread cameraOS = thread(cameraOS::start);
 //    cameraOS.detach();
 
-    thread lora = thread(lora::start);
-    lora.detach();
+    thread payload = thread(startPayload);
+    payload.detach();
 }
 
 void loop()
